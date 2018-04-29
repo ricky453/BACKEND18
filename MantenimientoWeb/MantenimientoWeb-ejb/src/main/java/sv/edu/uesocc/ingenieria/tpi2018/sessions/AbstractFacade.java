@@ -15,6 +15,7 @@ import javax.persistence.Query;
 /**
  *
  * @author ricky
+ * @param <T>
  */
 public abstract class AbstractFacade<T> {
 

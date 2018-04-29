@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "marca")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m")
+    @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m") 
+    , @NamedQuery(name = "Marca.findByName", query = "SELECT m FROM Marca m WHERE LOWER(m.marca) LIKE CONCAT('%',LOWER(:name),'%')")
     , @NamedQuery(name = "Marca.findByIdMarca", query = "SELECT m FROM Marca m WHERE m.idMarca = :idMarca")
     , @NamedQuery(name = "Marca.findByDescripcion", query = "SELECT m FROM Marca m WHERE m.descripcion = :descripcion")
     , @NamedQuery(name = "Marca.findByMarca", query = "SELECT m FROM Marca m WHERE m.marca = :marca")})
