@@ -6,7 +6,6 @@
 package sv.edu.uesocc.ingenieria.tpi2018.service;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 import sv.edu.uesocc.ingenieria.tpi2018.entities.Marca;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
@@ -16,10 +15,9 @@ import sv.edu.uesocc.ingenieria.tpi2018.sessions.MarcaFacadeLocal;
  *
  * @author ricky
  */
-@Stateless
 @Path("marca")
 public class MarcaFacadeREST extends AbstractFacade<Marca> implements NombrePorEntidad<Marca>{
-
+    
     @EJB
     protected MarcaFacadeLocal mfl;
     

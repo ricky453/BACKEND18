@@ -10,5 +10,5 @@
         <property name="URL" value="jdbc:postgresql://172.18.0.1:5430/MantenimientoTPI"/>
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/jndi_Mantenimiento" object-type="user" pool-name="post-gre-sql_MantenimientoTPI_postgresPool"/>
+    <jdbc-resource enabled="true" jndi-name="java:app/jndi_Mantenimiento" object-type="user" pool-name="post-g  re-sql_MantenimientoTPI_postgresPool"/>
 </resources>

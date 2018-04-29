@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
+import uesocc.edu.sv.tpi2018.web.exceptions.ControllerException;
 
 /**
  *
@@ -42,17 +43,16 @@ public abstract class AbstractFacade<T> {
                     if (r != null) {
                         return r;
                     }
-                    //return Response.status(Response.Status.NOT_ACCEPTABLE).header("No creado", this).build();
+                    throw new ControllerException(ControllerException.Message.REGISTRO_NO_CREADO);
                 } catch (EntityExistsException e) {
                     Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
-                    //return Response.status(Response.Status.CONFLICT).header("Registro repetido", this).build();
+                    throw new ControllerException(ControllerException.Message.REGISTRO_REPETIDO);
                 }
 
             }
             throw new NullPointerException("Facade null");
         }
-        //return Response.status(Response.Status.NOT_ACCEPTABLE).header("No creado", this).build();
-        return null;
+        throw new ControllerException(ControllerException.Message.FALTA_CAMPO_REQUERIDO);
     }
     @GET
     @Produces({MediaType.APPLICATION_JSON + "; charset=utf-8"})
@@ -66,7 +66,7 @@ public abstract class AbstractFacade<T> {
                 salida = entidad().findRange(first, pagesize);
             }
             if (salida == null) {
-                //return Response.status(Response.Status.NOT_ACCEPTABLE).header("No creado", this).build();
+                throw new ControllerException(ControllerException.Message.PARAMETRO_INVALIDO);
             }
             return salida;
         }
@@ -74,7 +74,7 @@ public abstract class AbstractFacade<T> {
     }
     
     @GET
-    @Path("buscarID/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     public T findById(@PathParam("id") int id) throws Exception {
         if (entidad() != null) {
@@ -83,7 +83,7 @@ public abstract class AbstractFacade<T> {
             if (salida != null) {
                 return salida;
             }
-           // return Response.status(Response.Status.NOT_ACCEPTABLE).header("No creado", this).build();
+            throw new ControllerException(ControllerException.Message.ID_NO_ENCONTRADO);
         }
         throw new NullPointerException("Facade null");
     }
@@ -97,7 +97,7 @@ public abstract class AbstractFacade<T> {
             if (salida != null) {
                 return salida;
             }
-           // throw new ControllerException(ControllerException.Message.REGISTRO_NO_EDITADO);
+           throw new ControllerException(ControllerException.Message.REGISTRO_NO_EDITADO);
         }
         throw new NullPointerException("Facade null");
     }
@@ -112,12 +112,11 @@ public abstract class AbstractFacade<T> {
                 if (encontrado != null) {
                     return String.valueOf(entidad().remove(encontrado));
                 }
-             //   throw new ControllerException(ControllerException.Message.REGISTRO_NO_ENCONTRADO);
+             throw new ControllerException(ControllerException.Message.REGISTRO_NO_ENCONTRADO);
             }
             throw new NullPointerException("Facade null");
         }
-        //throw new ControllerException(ControllerException.Message.PARAMETRO_INVALIDO);
-        return null;
+        throw new ControllerException(ControllerException.Message.PARAMETRO_INVALIDO);
     }
     
 }
