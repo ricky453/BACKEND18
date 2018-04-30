@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c")
+    , @NamedQuery(name = "Cargo.findByName", query = "SELECT m FROM Cargo m WHERE LOWER(m.cargo) LIKE CONCAT('%',LOWER(:name),'%')")
     , @NamedQuery(name = "Cargo.findByIdCargo", query = "SELECT c FROM Cargo c WHERE c.idCargo = :idCargo")
     , @NamedQuery(name = "Cargo.findByCargo", query = "SELECT c FROM Cargo c WHERE c.cargo = :cargo")
     , @NamedQuery(name = "Cargo.findByDescripcion", query = "SELECT c FROM Cargo c WHERE c.descripcion = :descripcion")})
@@ -35,6 +38,7 @@ public class Cargo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_cargo")
@@ -54,6 +58,10 @@ public class Cargo implements Serializable {
 
     public Cargo(Integer idCargo) {
         this.idCargo = idCargo;
+    }
+    public Cargo(Integer idCargo, String cargo) {
+        this.idCargo = idCargo;
+        this.cargo = cargo;
     }
 
     public Integer getIdCargo() {

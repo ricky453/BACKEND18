@@ -26,7 +26,7 @@ public class DiagnosticoFacade extends AbstractFacade<Diagnostico> implements Di
     }
 
     public DiagnosticoFacade() {
-        super(Diagnostico.class);
+        super(Diagnostico.class, "Diagnostico.findByName");
     }
     
 }

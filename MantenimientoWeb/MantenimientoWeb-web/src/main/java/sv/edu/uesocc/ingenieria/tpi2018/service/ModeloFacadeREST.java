@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import sv.edu.uesocc.ingenieria.tpi2018.entities.Modelo;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.ModeloFacadeLocal;
+import sv.edu.uesocc.ingenieria.tpi2018.extras.BuscarPorNombre;
 
 /**
  *
@@ -17,19 +18,24 @@ import sv.edu.uesocc.ingenieria.tpi2018.sessions.ModeloFacadeLocal;
  */
 
 @Path("modelo")
-public class ModeloFacadeREST extends AbstractFacade<Modelo> {
+public class ModeloFacadeREST extends AbstractFacade<Modelo> implements BuscarPorNombre<Modelo>{
 
     @EJB
-    protected ModeloFacadeLocal dtEJB;
+    protected ModeloFacadeLocal modeloEJB;
     
     @Override
     protected AbstractFacadeInterface<Modelo> entidad() {
-        return dtEJB;
+        return modeloEJB;
     }
 
     @Override
     protected Modelo New() {
         return new Modelo();
+    }
+    
+    @Override
+    public AbstractFacadeInterface<Modelo> getEntidad(){
+        return modeloEJB;
     }
     
 }

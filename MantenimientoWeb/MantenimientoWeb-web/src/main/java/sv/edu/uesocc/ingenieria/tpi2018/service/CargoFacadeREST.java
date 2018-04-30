@@ -6,11 +6,11 @@
 package sv.edu.uesocc.ingenieria.tpi2018.service;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 import sv.edu.uesocc.ingenieria.tpi2018.entities.Cargo;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.CargoFacadeLocal;
+import sv.edu.uesocc.ingenieria.tpi2018.extras.BuscarPorNombre;
 
 /**
  *
@@ -18,7 +18,7 @@ import sv.edu.uesocc.ingenieria.tpi2018.sessions.CargoFacadeLocal;
  */
 
 @Path("cargo")
-public class CargoFacadeREST extends AbstractFacade<Cargo> {
+public class CargoFacadeREST extends AbstractFacade<Cargo> implements BuscarPorNombre<Cargo>{
 
     @EJB
     protected CargoFacadeLocal cargoEJB;
@@ -31,6 +31,11 @@ public class CargoFacadeREST extends AbstractFacade<Cargo> {
     @Override
     protected Cargo New() {
         return new Cargo();
+    }
+    
+    @Override
+    public AbstractFacadeInterface<Cargo> getEntidad(){
+        return cargoEJB;
     }
     
 }

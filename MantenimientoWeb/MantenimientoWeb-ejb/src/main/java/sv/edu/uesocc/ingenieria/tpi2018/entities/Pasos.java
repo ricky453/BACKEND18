@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,12 +31,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pasos.findAll", query = "SELECT p FROM Pasos p")
+    , @NamedQuery(name = "Pasos.findByName", query = "SELECT m FROM Pasos m WHERE LOWER(m.paso) LIKE CONCAT('%',LOWER(:name),'%')")        
     , @NamedQuery(name = "Pasos.findByIdPaso", query = "SELECT p FROM Pasos p WHERE p.idPaso = :idPaso")
     , @NamedQuery(name = "Pasos.findByPaso", query = "SELECT p FROM Pasos p WHERE p.paso = :paso")})
 public class Pasos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_paso")
@@ -51,6 +55,11 @@ public class Pasos implements Serializable {
     public Pasos(Integer idPaso) {
         this.idPaso = idPaso;
     }
+    
+    public Pasos(Integer idPaso, String paso) {
+        this.idPaso = idPaso;
+        this.paso = paso;
+    }    
 
     public Integer getIdPaso() {
         return idPaso;

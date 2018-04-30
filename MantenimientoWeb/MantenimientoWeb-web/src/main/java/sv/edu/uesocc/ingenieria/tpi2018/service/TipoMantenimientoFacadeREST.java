@@ -10,13 +10,14 @@ import javax.ws.rs.Path;
 import sv.edu.uesocc.ingenieria.tpi2018.entities.TipoMantenimiento;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.TipoMantenimientoFacadeLocal;
+import sv.edu.uesocc.ingenieria.tpi2018.extras.BuscarPorNombre;
 
 /**
  *
  * @author ricky
  */
 @Path("tipoMantenimiento")
-public class TipoMantenimientoFacadeREST extends AbstractFacade<TipoMantenimiento> {
+public class TipoMantenimientoFacadeREST extends AbstractFacade<TipoMantenimiento> implements BuscarPorNombre<TipoMantenimiento>{
 
     @EJB
     protected TipoMantenimientoFacadeLocal tmEJB;
@@ -29,6 +30,11 @@ public class TipoMantenimientoFacadeREST extends AbstractFacade<TipoMantenimient
     @Override
     protected TipoMantenimiento New() {
         return new TipoMantenimiento();
+    }
+    
+    @Override
+    public AbstractFacadeInterface<TipoMantenimiento> getEntidad(){
+        return tmEJB;
     }
     
 }

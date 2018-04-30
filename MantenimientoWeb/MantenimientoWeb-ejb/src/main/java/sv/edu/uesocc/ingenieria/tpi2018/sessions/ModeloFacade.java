@@ -26,7 +26,7 @@ public class ModeloFacade extends AbstractFacade<Modelo> implements ModeloFacade
     }
 
     public ModeloFacade() {
-        super(Modelo.class);
+        super(Modelo.class, "Modelo.findByName");
     }
     
 }

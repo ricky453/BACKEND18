@@ -26,7 +26,7 @@ public class PasosFacade extends AbstractFacade<Pasos> implements PasosFacadeLoc
     }
 
     public PasosFacade() {
-        super(Pasos.class);
+        super(Pasos.class, "Pasos.findByName");
     }
     
 }

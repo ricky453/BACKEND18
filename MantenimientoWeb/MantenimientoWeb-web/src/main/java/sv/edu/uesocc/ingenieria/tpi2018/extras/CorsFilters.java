@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.uesocc.ingenieria.tpi2018.cors;
+package sv.edu.uesocc.ingenieria.tpi2018.extras;
 
 import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -13,7 +13,7 @@ import javax.ws.rs.ext.Provider;
 
 /**
  *
- * @author doratt
+ * @author ricky
  */
 @Provider
 public class CorsFilters implements ContainerResponseFilter {

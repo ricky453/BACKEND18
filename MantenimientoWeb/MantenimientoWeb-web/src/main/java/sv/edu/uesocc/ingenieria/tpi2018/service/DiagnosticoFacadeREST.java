@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import sv.edu.uesocc.ingenieria.tpi2018.entities.Diagnostico;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.DiagnosticoFacadeLocal;
+import sv.edu.uesocc.ingenieria.tpi2018.extras.BuscarPorNombre;
 
 /**
  *
@@ -17,7 +18,7 @@ import sv.edu.uesocc.ingenieria.tpi2018.sessions.DiagnosticoFacadeLocal;
  */
 
 @Path("diagnostico")
-public class DiagnosticoFacadeREST extends AbstractFacade<Diagnostico> {
+public class DiagnosticoFacadeREST extends AbstractFacade<Diagnostico> implements BuscarPorNombre<Diagnostico>{
 
     @EJB
     protected DiagnosticoFacadeLocal diagnosticoEJB;
@@ -30,6 +31,11 @@ public class DiagnosticoFacadeREST extends AbstractFacade<Diagnostico> {
     @Override
     protected Diagnostico New() {
         return new Diagnostico();
+    }
+    
+    @Override
+    public AbstractFacadeInterface<Diagnostico> getEntidad(){
+        return diagnosticoEJB;
     }
     
 }

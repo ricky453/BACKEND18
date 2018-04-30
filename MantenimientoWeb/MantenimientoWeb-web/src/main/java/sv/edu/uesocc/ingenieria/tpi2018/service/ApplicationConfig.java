@@ -29,7 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(sv.edu.uesocc.ingenieria.tpi2018.cors.CorsFilters.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.extras.CorsFilters.class);
         resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.AsuetosFacadeREST.class);
         resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.CalendarioFacadeREST.class);
         resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.CargoFacadeREST.class);

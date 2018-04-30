@@ -26,7 +26,7 @@ public class CargoFacade extends AbstractFacade<Cargo> implements CargoFacadeLoc
     }
 
     public CargoFacade() {
-        super(Cargo.class);
+        super(Cargo.class, "Cargo.findByName");
     }
     
 }

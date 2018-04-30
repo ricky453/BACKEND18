@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,12 +33,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Procedimiento.findAll", query = "SELECT p FROM Procedimiento p")
+    , @NamedQuery(name = "Procedimiento.findByName", query = "SELECT m FROM Procedimiento m WHERE LOWER(m.procedimiento) LIKE CONCAT('%',LOWER(:name),'%')")        
     , @NamedQuery(name = "Procedimiento.findByIdProcedimiento", query = "SELECT p FROM Procedimiento p WHERE p.idProcedimiento = :idProcedimiento")
     , @NamedQuery(name = "Procedimiento.findByProcedimiento", query = "SELECT p FROM Procedimiento p WHERE p.procedimiento = :procedimiento")})
 public class Procedimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_procedimiento")
@@ -57,6 +61,11 @@ public class Procedimiento implements Serializable {
 
     public Procedimiento(Integer idProcedimiento) {
         this.idProcedimiento = idProcedimiento;
+    }
+    
+    public Procedimiento(Integer idProcedimiento, String procedimiento) {
+        this.idProcedimiento = idProcedimiento;
+        this.procedimiento = procedimiento;
     }
 
     public Integer getIdProcedimiento() {

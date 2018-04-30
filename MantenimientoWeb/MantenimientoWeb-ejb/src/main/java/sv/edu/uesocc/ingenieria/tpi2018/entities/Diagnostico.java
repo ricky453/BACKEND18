@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,12 +30,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Diagnostico.findAll", query = "SELECT d FROM Diagnostico d")
+    , @NamedQuery(name = "Diagnostico.findByName", query = "SELECT m FROM Diagnostico m WHERE LOWER(m.diagnostico) LIKE CONCAT('%',LOWER(:name),'%')")
     , @NamedQuery(name = "Diagnostico.findByIdDiagnostico", query = "SELECT d FROM Diagnostico d WHERE d.idDiagnostico = :idDiagnostico")
     , @NamedQuery(name = "Diagnostico.findByDiagnostico", query = "SELECT d FROM Diagnostico d WHERE d.diagnostico = :diagnostico")})
 public class Diagnostico implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_diagnostico")
@@ -53,6 +57,11 @@ public class Diagnostico implements Serializable {
 
     public Diagnostico(Integer idDiagnostico) {
         this.idDiagnostico = idDiagnostico;
+    }
+    
+    public Diagnostico(Integer idDiagnostico, String diagnostico) {
+        this.idDiagnostico = idDiagnostico;
+        this.diagnostico = diagnostico;
     }
 
     public Integer getIdDiagnostico() {

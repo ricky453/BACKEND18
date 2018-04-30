@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Modelo.findAll", query = "SELECT m FROM Modelo m")
+    , @NamedQuery(name = "Modelo.findByName", query = "SELECT m FROM Modelo m WHERE LOWER(m.modelo) LIKE CONCAT('%',LOWER(:name),'%')")        
     , @NamedQuery(name = "Modelo.findByIdModelo", query = "SELECT m FROM Modelo m WHERE m.idModelo = :idModelo")
     , @NamedQuery(name = "Modelo.findByDescripcion", query = "SELECT m FROM Modelo m WHERE m.descripcion = :descripcion")
     , @NamedQuery(name = "Modelo.findByModelo", query = "SELECT m FROM Modelo m WHERE m.modelo = :modelo")})
@@ -36,6 +39,7 @@ public class Modelo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_modelo")
@@ -54,6 +58,11 @@ public class Modelo implements Serializable {
 
     public Modelo(Integer idModelo) {
         this.idModelo = idModelo;
+    }
+    
+    public Modelo(Integer idModelo, String modelo) {
+        this.idModelo = idModelo;
+        this.modelo = modelo;
     }
 
     public Integer getIdModelo() {

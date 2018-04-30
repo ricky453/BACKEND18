@@ -20,16 +20,16 @@ import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
  * @author ricky
  * @param <T>
  */
-public interface NombrePorEntidad<T>{
+public interface BuscarPorNombre<T>{
+    
     AbstractFacadeInterface<T> getEntidad();
     
     @GET
     @Path("nombre/{name}")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     default List<T> findByName(@PathParam("name") String name,
-            @QueryParam("first") @DefaultValue("0") int first,
-            @QueryParam("pagesize") @DefaultValue("50") int pagesize) throws Exception {
-
+        @QueryParam("first") @DefaultValue("0") int first,
+        @QueryParam("pagesize") @DefaultValue("50") int pagesize) throws Exception {
         if (getEntidad() != null) {
             if (pagesize > 0 && first >= 0) {
                 List<T> salida = getEntidad().findByName(name, first, pagesize);
@@ -38,7 +38,6 @@ public interface NombrePorEntidad<T>{
                 }
             }
         }
-        throw new NullPointerException("Nulo");
-
+        throw new NullPointerException("NULO");
     }
 }

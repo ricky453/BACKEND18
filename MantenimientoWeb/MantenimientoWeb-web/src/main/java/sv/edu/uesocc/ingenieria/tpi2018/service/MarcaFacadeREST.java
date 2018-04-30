@@ -5,19 +5,19 @@
  */
 package sv.edu.uesocc.ingenieria.tpi2018.service;
 
-import sv.edu.uesocc.ingenieria.tpi2018.extras.NombrePorEntidad;
 import javax.ejb.EJB;
 import javax.ws.rs.Path;
 import sv.edu.uesocc.ingenieria.tpi2018.entities.Marca;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.MarcaFacadeLocal;
+import sv.edu.uesocc.ingenieria.tpi2018.extras.BuscarPorNombre;
 
 /**
  *
  * @author ricky
  */
 @Path("marca")
-public class MarcaFacadeREST extends AbstractFacade<Marca> implements NombrePorEntidad<Marca>{
+public class MarcaFacadeREST extends AbstractFacade<Marca> implements BuscarPorNombre<Marca>{
     
     @EJB
     protected MarcaFacadeLocal marcaEJB;

@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoMantenimiento.findAll", query = "SELECT t FROM TipoMantenimiento t")
+    , @NamedQuery(name = "TipoMantenimiento.findByName", query = "SELECT m FROM TipoMantenimiento m WHERE LOWER(m.tipoMantenimiento) LIKE CONCAT('%',LOWER(:name),'%')")        
     , @NamedQuery(name = "TipoMantenimiento.findByIdTipoMantenimiento", query = "SELECT t FROM TipoMantenimiento t WHERE t.idTipoMantenimiento = :idTipoMantenimiento")
     , @NamedQuery(name = "TipoMantenimiento.findByObservaciones", query = "SELECT t FROM TipoMantenimiento t WHERE t.observaciones = :observaciones")
     , @NamedQuery(name = "TipoMantenimiento.findByTipoMantenimiento", query = "SELECT t FROM TipoMantenimiento t WHERE t.tipoMantenimiento = :tipoMantenimiento")})
@@ -36,6 +39,7 @@ public class TipoMantenimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_tipo_mantenimiento")
@@ -54,6 +58,11 @@ public class TipoMantenimiento implements Serializable {
 
     public TipoMantenimiento(Integer idTipoMantenimiento) {
         this.idTipoMantenimiento = idTipoMantenimiento;
+    }
+    
+    public TipoMantenimiento(Integer idTipoMantenimiento, String tipoMantenimiento) {
+        this.idTipoMantenimiento = idTipoMantenimiento;
+        this.tipoMantenimiento = tipoMantenimiento;
     }
 
     public Integer getIdTipoMantenimiento() {

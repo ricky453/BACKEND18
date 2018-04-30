@@ -20,7 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
-import sv.edu.uesocc.ingenieria.tpi2018.exceptions.ControllerException;
+import sv.edu.uesocc.ingenieria.tpi2018.extras.Excepciones;
 
 /**
  *
@@ -44,16 +44,16 @@ public abstract class AbstractFacade<T> {
                     if (r != null) {
                         return r;
                     }
-                    throw new ControllerException(ControllerException.Message.REGISTRO_NO_CREADO);
+                    throw new Excepciones(Excepciones.Message.NOTCREATED);
                 } catch (EntityExistsException e) {
                     Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
-                    throw new ControllerException(ControllerException.Message.REGISTRO_REPETIDO);
+                    throw new Excepciones(Excepciones.Message.REPEATED);
                 }
 
             }
-            throw new NullPointerException("Facade null");
+            throw new NullPointerException("NULO");
         }
-        throw new ControllerException(ControllerException.Message.FALTA_CAMPO_REQUERIDO);
+        throw new Excepciones(Excepciones.Message.REQFIELD);
     }
     @GET
     @Produces({MediaType.APPLICATION_JSON + "; charset=utf-8"})
@@ -67,11 +67,11 @@ public abstract class AbstractFacade<T> {
                 salida = entidad().findRange(first, pagesize);
             }
             if (salida == null) {
-                throw new ControllerException(ControllerException.Message.PARAMETRO_INVALIDO);
+                throw new Excepciones(Excepciones.Message.INVPAR);
             }
             return salida;
         }
-        throw new NullPointerException("Facade null");
+        throw new NullPointerException("NULO");
     }
     
     @GET
@@ -83,9 +83,9 @@ public abstract class AbstractFacade<T> {
             if (encontrado != null) {
                 return encontrado;
             }
-            throw new ControllerException(ControllerException.Message.ID_NO_ENCONTRADO);
+            throw new Excepciones(Excepciones.Message.IDNOTFOUND);
         }
-        throw new NullPointerException("Facade null");
+        throw new NullPointerException("NULO");
     }
 
     @PUT
@@ -99,9 +99,9 @@ public abstract class AbstractFacade<T> {
             if (salida != null) {
                 return salida;
             }
-           throw new ControllerException(ControllerException.Message.REGISTRO_NO_EDITADO);
+           throw new Excepciones(Excepciones.Message.NOTEDITED);
         }
-        throw new NullPointerException("Facade null");
+        throw new NullPointerException("NULO");
     }
 
     @DELETE
@@ -114,11 +114,11 @@ public abstract class AbstractFacade<T> {
                 if (encontrado != null) {
                     return String.valueOf(entidad().remove(encontrado));
                 }
-             throw new ControllerException(ControllerException.Message.REGISTRO_NO_ENCONTRADO);
+             throw new Excepciones(Excepciones.Message.NOTFOUND);
             }
-            throw new NullPointerException("Facade null");
+            throw new NullPointerException("NULO");
         }
-        throw new ControllerException(ControllerException.Message.PARAMETRO_INVALIDO);
+        throw new Excepciones(Excepciones.Message.INVPAR);
     }
     
 }

@@ -10,13 +10,14 @@ import javax.ws.rs.Path;
 import sv.edu.uesocc.ingenieria.tpi2018.entities.Procedimiento;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.ProcedimientoFacadeLocal;
+import sv.edu.uesocc.ingenieria.tpi2018.extras.BuscarPorNombre;
 
 /**
  *
  * @author ricky
  */
 @Path("procedimiento")
-public class ProcedimientoFacadeREST extends AbstractFacade<Procedimiento> {
+public class ProcedimientoFacadeREST extends AbstractFacade<Procedimiento> implements BuscarPorNombre<Procedimiento>{
 
     @EJB
     protected ProcedimientoFacadeLocal procedimientoEJB;
@@ -30,5 +31,10 @@ public class ProcedimientoFacadeREST extends AbstractFacade<Procedimiento> {
     protected Procedimiento New() {
         return new Procedimiento();
     }
+    
+    @Override
+    public AbstractFacadeInterface<Procedimiento> getEntidad(){
+        return procedimientoEJB;
+    }    
     
 }

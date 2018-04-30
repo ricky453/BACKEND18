@@ -26,7 +26,7 @@ public class ProcedimientoFacade extends AbstractFacade<Procedimiento> implement
     }
 
     public ProcedimientoFacade() {
-        super(Procedimiento.class);
+        super(Procedimiento.class, "Procedimiento.findByName");
     }
     
 }
