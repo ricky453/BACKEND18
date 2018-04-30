@@ -6,30 +6,31 @@
 package sv.edu.uesocc.ingenieria.tpi2018.service;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.ws.rs.Path;
-import sv.edu.uesocc.ingenieria.tpi2018.entities.Asuetos;
+import sv.edu.uesocc.ingenieria.tpi2018.entities.Cargo;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
-import sv.edu.uesocc.ingenieria.tpi2018.sessions.AsuetosFacadeLocal;
+import sv.edu.uesocc.ingenieria.tpi2018.sessions.CargoFacadeLocal;
 
 /**
  *
  * @author ricky
  */
 
-@Path("asuetos")
-public class AsuetosFacadeREST extends AbstractFacade<Asuetos> {
+@Path("cargo")
+public class CargoFacadeREST extends AbstractFacade<Cargo> {
 
     @EJB
-    protected AsuetosFacadeLocal asuetosEJB;
+    protected CargoFacadeLocal cargoEJB;
     
     @Override
-    protected AbstractFacadeInterface<Asuetos> entidad() {
-        return asuetosEJB;
+    protected AbstractFacadeInterface<Cargo> entidad() {
+        return cargoEJB;
     }
 
     @Override
-    protected Asuetos New() {
-        return new Asuetos();
+    protected Cargo New() {
+        return new Cargo();
     }
     
 }

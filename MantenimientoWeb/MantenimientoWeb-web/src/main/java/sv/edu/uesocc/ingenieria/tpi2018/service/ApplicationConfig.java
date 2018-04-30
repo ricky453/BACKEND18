@@ -31,7 +31,23 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(sv.edu.uesocc.ingenieria.tpi2018.cors.CorsFilters.class);
         resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.AsuetosFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.CalendarioFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.CargoFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.DetalleEquipoFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.DetalleMantenimientoFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.DiagnosticoFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.DiagnosticoParteFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.EquipoFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.EstadoDetalleMantenimientoFacadeREST.class);
         resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.MarcaFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.ModeloFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.OrdenTrabajoFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.OrdenTrabajoPorTrabajadoresFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.PasosFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.ProcedimientoFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.SolicitudFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.TipoMantenimientoFacadeREST.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.TrabajadoresFacadeREST.class);
     }
     
 }

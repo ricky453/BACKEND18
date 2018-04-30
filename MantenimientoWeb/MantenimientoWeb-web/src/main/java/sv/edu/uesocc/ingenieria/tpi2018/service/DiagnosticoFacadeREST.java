@@ -7,29 +7,29 @@ package sv.edu.uesocc.ingenieria.tpi2018.service;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Path;
-import sv.edu.uesocc.ingenieria.tpi2018.entities.Asuetos;
+import sv.edu.uesocc.ingenieria.tpi2018.entities.Diagnostico;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
-import sv.edu.uesocc.ingenieria.tpi2018.sessions.AsuetosFacadeLocal;
+import sv.edu.uesocc.ingenieria.tpi2018.sessions.DiagnosticoFacadeLocal;
 
 /**
  *
  * @author ricky
  */
 
-@Path("asuetos")
-public class AsuetosFacadeREST extends AbstractFacade<Asuetos> {
+@Path("diagnostico")
+public class DiagnosticoFacadeREST extends AbstractFacade<Diagnostico> {
 
     @EJB
-    protected AsuetosFacadeLocal asuetosEJB;
+    protected DiagnosticoFacadeLocal diagnosticoEJB;
     
     @Override
-    protected AbstractFacadeInterface<Asuetos> entidad() {
-        return asuetosEJB;
+    protected AbstractFacadeInterface<Diagnostico> entidad() {
+        return diagnosticoEJB;
     }
 
     @Override
-    protected Asuetos New() {
-        return new Asuetos();
+    protected Diagnostico New() {
+        return new Diagnostico();
     }
     
 }

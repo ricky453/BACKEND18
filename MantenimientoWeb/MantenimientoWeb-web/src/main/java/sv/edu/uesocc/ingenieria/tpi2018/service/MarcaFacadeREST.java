@@ -5,6 +5,7 @@
  */
 package sv.edu.uesocc.ingenieria.tpi2018.service;
 
+import sv.edu.uesocc.ingenieria.tpi2018.extras.NombrePorEntidad;
 import javax.ejb.EJB;
 import javax.ws.rs.Path;
 import sv.edu.uesocc.ingenieria.tpi2018.entities.Marca;
@@ -19,11 +20,11 @@ import sv.edu.uesocc.ingenieria.tpi2018.sessions.MarcaFacadeLocal;
 public class MarcaFacadeREST extends AbstractFacade<Marca> implements NombrePorEntidad<Marca>{
     
     @EJB
-    protected MarcaFacadeLocal mfl;
+    protected MarcaFacadeLocal marcaEJB;
     
     @Override
     protected AbstractFacadeInterface<Marca> entidad() {
-        return mfl;
+        return marcaEJB;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class MarcaFacadeREST extends AbstractFacade<Marca> implements NombrePorE
 
     @Override
     public AbstractFacadeInterface<Marca> getEntidad() {
-        return mfl;
+        return marcaEJB;
     }
     
 }

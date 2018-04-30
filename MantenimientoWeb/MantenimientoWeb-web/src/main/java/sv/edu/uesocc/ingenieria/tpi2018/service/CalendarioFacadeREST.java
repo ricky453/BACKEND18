@@ -7,29 +7,28 @@ package sv.edu.uesocc.ingenieria.tpi2018.service;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Path;
-import sv.edu.uesocc.ingenieria.tpi2018.entities.Asuetos;
+import sv.edu.uesocc.ingenieria.tpi2018.entities.Calendario;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
-import sv.edu.uesocc.ingenieria.tpi2018.sessions.AsuetosFacadeLocal;
+import sv.edu.uesocc.ingenieria.tpi2018.sessions.CalendarioFacadeLocal;
 
 /**
  *
  * @author ricky
  */
-
-@Path("asuetos")
-public class AsuetosFacadeREST extends AbstractFacade<Asuetos> {
+@Path("calendario")
+public class CalendarioFacadeREST extends AbstractFacade<Calendario> {
 
     @EJB
-    protected AsuetosFacadeLocal asuetosEJB;
+    protected CalendarioFacadeLocal calendarioEJB;
     
     @Override
-    protected AbstractFacadeInterface<Asuetos> entidad() {
-        return asuetosEJB;
+    protected AbstractFacadeInterface<Calendario> entidad() {
+        return calendarioEJB;
     }
 
     @Override
-    protected Asuetos New() {
-        return new Asuetos();
+    protected Calendario New() {
+        return new Calendario();
     }
     
 }

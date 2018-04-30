@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.uesocc.ingenieria.tpi2018.service;
+package sv.edu.uesocc.ingenieria.tpi2018.extras;
 
 import java.util.List;
 import javax.ws.rs.DefaultValue;
