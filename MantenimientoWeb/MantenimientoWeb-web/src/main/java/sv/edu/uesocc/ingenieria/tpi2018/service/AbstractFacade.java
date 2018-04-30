@@ -30,9 +30,8 @@ import sv.edu.uesocc.ingenieria.tpi2018.extras.Excepciones;
 public abstract class AbstractFacade<T> {
 
     protected abstract AbstractFacadeInterface<T> entidad();
-    protected T entity;
     protected abstract T New();
-
+    
 
     @POST
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
