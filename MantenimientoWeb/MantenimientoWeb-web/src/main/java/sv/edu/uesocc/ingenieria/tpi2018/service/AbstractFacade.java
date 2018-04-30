@@ -20,11 +20,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
-import uesocc.edu.sv.tpi2018.web.exceptions.ControllerException;
+import sv.edu.uesocc.ingenieria.tpi2018.exceptions.ControllerException;
 
 /**
  *
  * @author ricky
+ * @param <T>
  */
 public abstract class AbstractFacade<T> {
 
@@ -78,10 +79,9 @@ public abstract class AbstractFacade<T> {
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     public T findById(@PathParam("id") int id) throws Exception {
         if (entidad() != null) {
-            T salida;
-            salida = entidad().findById(id);
-            if (salida != null) {
-                return salida;
+            T encontrado = entidad().findById(id);
+            if (encontrado != null) {
+                return encontrado;
             }
             throw new ControllerException(ControllerException.Message.ID_NO_ENCONTRADO);
         }
@@ -91,9 +91,11 @@ public abstract class AbstractFacade<T> {
     @PUT
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     public T editElement(T registro) throws Exception {
-        T salida;
+
         if (entidad() != null) {
+            T salida;
             salida = entidad().edit(registro);
+            System.out.println(salida+" es salida");
             if (salida != null) {
                 return salida;
             }

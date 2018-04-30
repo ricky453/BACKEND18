@@ -29,11 +29,9 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.cors.CorsFilters.class);
+        resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.AsuetosFacadeREST.class);
         resources.add(sv.edu.uesocc.ingenieria.tpi2018.service.MarcaFacadeREST.class);
-        resources.add(uesocc.edu.sv.tpi2018.web.exceptions.ControllerExceptionMapper.class);
-        resources.add(uesocc.edu.sv.tpi2018.web.exceptions.ExceptionMapper.class);
-        resources.add(uesocc.edu.sv.tpi2018.web.exceptions.NotFoundMapper.class);
-        resources.add(uesocc.edu.sv.tpi2018.web.filters.cors.CorsFilters.class);
     }
     
 }
