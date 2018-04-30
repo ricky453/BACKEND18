@@ -10,6 +10,7 @@ import java.util.List;
 /**
  *
  * @author ricky
+ * @param <T>
  */
 public interface AbstractFacadeInterface<T> {
         
