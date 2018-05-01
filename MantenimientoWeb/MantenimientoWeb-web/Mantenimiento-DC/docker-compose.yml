@@ -13,7 +13,7 @@ services:
      - '5430:5432'
    restart: always
    volumes:
-     - postgresData:/var/lib/postgresql/data 
+     - postgresDataM:/var/lib/postgresql/data 
    networks:
      - webnet
 
@@ -36,5 +36,5 @@ networks:
  webnet:
 
 volumes:
- postgresData:
+ postgresDataM:
 
