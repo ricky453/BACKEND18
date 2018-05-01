@@ -16,11 +16,11 @@ import javax.ws.rs.ext.Provider;
  * @author ricky
  */
 @Provider
-public class CorsFilters implements ContainerResponseFilter {
+public class Cors implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        responseContext.getHeaders().add("Acces-Control-Allow-Origin", "*");
-        responseContext.getHeaders().add("Acces-Control-Allow-Credentials", "true");
+        responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
+        responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
         responseContext.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
         responseContext.getHeaders().add("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE, HEAD");
     }
