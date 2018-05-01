@@ -1,6 +1,15 @@
 version: "3.1"
 services:
 
+ frontend:
+   image: 'apachetpi'
+   build: ./Apache/.
+   depends_on:
+     - web
+   ports:
+     - "70:80"
+   networks:
+     - webnet
  db:
    image: 'postgrestpi'
    build: ./PostgreSQL/.
