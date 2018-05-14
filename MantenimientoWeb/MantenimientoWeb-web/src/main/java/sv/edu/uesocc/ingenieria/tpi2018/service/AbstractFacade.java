@@ -74,7 +74,7 @@ public abstract class AbstractFacade<T> {
     }
     
     @GET
-    @Path("{id}")
+    @Path("buscar/{id}")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     public T findById(@PathParam("id") int id) throws Exception {
         if (entidad() != null) {
@@ -88,6 +88,7 @@ public abstract class AbstractFacade<T> {
     }
 
     @PUT
+    @Path("editar")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     public T editElement(T registro) throws Exception {
 
@@ -104,7 +105,7 @@ public abstract class AbstractFacade<T> {
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("borrar/{id}")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     public String deleteElement(@PathParam("id") Integer id) throws Exception {
         if (id > 0) {
