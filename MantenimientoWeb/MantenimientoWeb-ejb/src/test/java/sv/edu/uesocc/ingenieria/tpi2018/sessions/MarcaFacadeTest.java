@@ -106,6 +106,7 @@ public class MarcaFacadeTest {
         System.out.println("edit");
         mf.getEntityManager().persist(new Marca(1, "Marc1a1"));
         Marca entity = new Marca(1, "Marquita1");
+        System.out.println(entity);
         
         Marca result = mf.edit(entity);
         System.out.println(entity.getMarca() +" vs "+ result.getMarca());

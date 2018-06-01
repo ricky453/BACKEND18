@@ -121,4 +121,27 @@ public abstract class AbstractFacade<T> {
         throw new Excepciones(Excepciones.Message.INVPAR);
     }
     
+    @GET
+    @Path("findRange")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
+    public List<T> findRange(
+           @QueryParam("lower") int low,
+           @QueryParam("higher") int high
+        ){
+        if(entidad()!=null){
+            return entidad().findRange(low, high);
+        }
+        return null;
+    }
+    
+    @GET
+    @Path("count")
+    @Produces({MediaType.TEXT_PLAIN})
+    public int count(){
+        if(entidad()!=null){
+        return entidad().count();
+        }
+        return 0;
+    }
+    
 }
