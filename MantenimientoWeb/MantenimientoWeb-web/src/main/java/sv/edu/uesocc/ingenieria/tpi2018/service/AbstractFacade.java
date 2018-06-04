@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityExistsException;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -19,6 +20,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import sv.edu.uesocc.ingenieria.tpi2018.sessions.AbstractFacadeInterface;
 import sv.edu.uesocc.ingenieria.tpi2018.extras.Excepciones;
 
@@ -31,29 +33,30 @@ public abstract class AbstractFacade<T> {
 
     protected abstract AbstractFacadeInterface<T> entidad();
     protected abstract T New();
-    
+    private static final String CORSORIGIN = "Access-Control-Allow-Origin";
+    private static final String CORSCREDENTIAL = "Access-Control-Allow-Credentials";
+    private static final String CORSHEADER = "Access-Control-Allow-Headers";
+    private static final String CORSMETHOD = "Access-Control-Allow-Methods";    
+    private static final String METHODS = "GET, POST, PUT, DELETE, OPTIONS, HEAD";
+    private static final String HEADERS = "origin, content-type, accept, authorization";
+    private static final String CREDENTIAL = "true";
+    private static final String ORIGIN = "*";
+
 
     @POST
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
-    public T create(T registro) throws Exception {
-        if (registro != null) {
-            if (entidad() != null) {
-                try {
-                    T r = entidad().create(registro);
-                    if (r != null) {
-                        return r;
-                    }
-                    throw new Excepciones(Excepciones.Message.NOTCREATED);
-                } catch (EntityExistsException e) {
-                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
-                    throw new Excepciones(Excepciones.Message.REPEATED);
-                }
-
-            }
-            throw new NullPointerException("NULO");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(T registro) throws Exception {
+        if (entidad().crear(registro)) {
+            return Response.status(Response.Status.CREATED).entity(registro).build();
         }
-        throw new Excepciones(Excepciones.Message.REQFIELD);
+        return Response.status(Response.Status.NOT_FOUND).header(CORSORIGIN, ORIGIN)
+                .header(CORSCREDENTIAL, CREDENTIAL)
+                .header(CORSHEADER, HEADERS)
+                .header(CORSMETHOD, METHODS)
+                .entity(registro).build();
     }
+
     @GET
     @Produces({MediaType.APPLICATION_JSON + "; charset=utf-8"})
     public List<T> findAll(@QueryParam("first") @DefaultValue("0") int first,
@@ -90,19 +93,18 @@ public abstract class AbstractFacade<T> {
     @PUT
     @Path("editar")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
-    public T editElement(T registro) throws Exception {
-
-        if (entidad() != null) {
-            T salida;
-            salida = entidad().edit(registro);
-            System.out.println(salida+" es salida");
-            if (salida != null) {
-                return salida;
-            }
-           throw new Excepciones(Excepciones.Message.NOTEDITED);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response editElement(T registro) throws Exception {
+        if (entidad().editar(registro)) {
+            return Response.status(Response.Status.OK).header(CORSORIGIN, ORIGIN)
+                    .header(CORSCREDENTIAL, CREDENTIAL)
+                    .header(CORSHEADER, HEADERS)
+                    .header(CORSMETHOD, METHODS)
+                    .entity(registro).build();
         }
-        throw new NullPointerException("NULO");
+        return Response.status(Response.Status.NOT_FOUND).header("no se pudo editar", this).build();
     }
+
 
     @DELETE
     @Path("borrar/{id}")
