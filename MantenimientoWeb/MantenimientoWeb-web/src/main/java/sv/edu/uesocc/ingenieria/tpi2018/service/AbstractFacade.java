@@ -5,6 +5,7 @@
  */
 package sv.edu.uesocc.ingenieria.tpi2018.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ public abstract class AbstractFacade<T> {
 
     protected abstract AbstractFacadeInterface<T> entidad();
     protected abstract T New();
+    private final ArrayList<T> lista = new ArrayList<>();
     private static final String CORSORIGIN = "Access-Control-Allow-Origin";
     private static final String CORSCREDENTIAL = "Access-Control-Allow-Credentials";
     private static final String CORSHEADER = "Access-Control-Allow-Headers";
@@ -50,31 +52,19 @@ public abstract class AbstractFacade<T> {
         if (entidad().crear(registro)) {
             return Response.status(Response.Status.CREATED).entity(registro).build();
         }
-        return Response.status(Response.Status.NOT_FOUND).header(CORSORIGIN, ORIGIN)
-                .header(CORSCREDENTIAL, CREDENTIAL)
-                .header(CORSHEADER, HEADERS)
-                .header(CORSMETHOD, METHODS)
+        return Response.status(Response.Status.NOT_FOUND)
                 .entity(registro).build();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON + "; charset=utf-8"})
-    public List<T> findAll(@QueryParam("first") @DefaultValue("0") int first,
-            @QueryParam("pagesize") @DefaultValue("0") int pagesize) throws Exception {
-        List<T> salida = null;
+    public List<T> findAll(){
         if (entidad() != null) {
-            if (pagesize == 0) {
-                salida = entidad().findAll();
-            } else if (pagesize > 0 && first >= 0) {
-                salida = entidad().findRange(first, pagesize);
+            return entidad().findAll();
             }
-            if (salida == null) {
-                throw new Excepciones(Excepciones.Message.INVPAR);
-            }
-            return salida;
+            return lista;
         }
-        throw new NullPointerException("NULO");
-    }
+
     
     @GET
     @Path("buscar/{id}")
@@ -96,10 +86,7 @@ public abstract class AbstractFacade<T> {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response editElement(T registro) throws Exception {
         if (entidad().editar(registro)) {
-            return Response.status(Response.Status.OK).header(CORSORIGIN, ORIGIN)
-                    .header(CORSCREDENTIAL, CREDENTIAL)
-                    .header(CORSHEADER, HEADERS)
-                    .header(CORSMETHOD, METHODS)
+            return Response.status(Response.Status.OK)
                     .entity(registro).build();
         }
         return Response.status(Response.Status.NOT_FOUND).header("no se pudo editar", this).build();
@@ -109,12 +96,12 @@ public abstract class AbstractFacade<T> {
     @DELETE
     @Path("borrar/{id}")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
-    public String deleteElement(@PathParam("id") Integer id) throws Exception {
+    public Response deleteElement(@PathParam("id") Integer id) throws Exception {
         if (id > 0) {
             if (entidad() != null) {
                 T encontrado = entidad().findById(id);
                 if (encontrado != null) {
-                    return String.valueOf(entidad().remove(encontrado));
+                    return Response.status(Response.Status.OK).entity("").build();
                 }
              throw new Excepciones(Excepciones.Message.NOTFOUND);
             }

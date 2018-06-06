@@ -66,6 +66,11 @@ public class Marca implements Serializable {
         this.idMarca = idMarca;
         this.marca = marca;
     }
+    public Marca(Integer idMarca, String marca, boolean activo) {
+        this.idMarca = idMarca;
+        this.marca = marca;
+        this.activo = activo;
+    }
 
     public Integer getIdMarca() {
         return idMarca;
