@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sv.edu.uesocc.ingenieria.tpi2018.entities;
 
 import java.io.Serializable;
@@ -54,6 +49,10 @@ public class Solicitud implements Serializable {
     @Size(max = 255)
     @Column(name = "descripcion")
     private String descripcion;
+        
+    @Size(max = 255)
+    @Column(name = "responsable")
+    private String responsable;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 255)
     @Column(name = "email")
@@ -62,15 +61,13 @@ public class Solicitud implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Size(max = 255)
-    @Column(name = "responsable")
-    private String responsable;
-    @Size(max = 255)
     @Column(name = "telefono")
     private String telefono;
     @OneToMany(mappedBy = "idSolicitud")
     private Collection<OrdenTrabajo> ordenTrabajoCollection;
     @JoinColumn(name = "id_equipo", referencedColumnName = "id_equipo")
     @ManyToOne
+    
     private Equipo idEquipo;
     @JoinColumn(name = "id_tipo_mantenimiento", referencedColumnName = "id_tipo_mantenimiento")
     @ManyToOne
@@ -98,6 +95,14 @@ public class Solicitud implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
 
     public String getEmail() {
         return email;
@@ -115,13 +120,6 @@ public class Solicitud implements Serializable {
         this.fecha = fecha;
     }
 
-    public String getResponsable() {
-        return responsable;
-    }
-
-    public void setResponsable(String responsable) {
-        this.responsable = responsable;
-    }
 
     public String getTelefono() {
         return telefono;
@@ -165,7 +163,6 @@ public class Solicitud implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Solicitud)) {
             return false;
         }

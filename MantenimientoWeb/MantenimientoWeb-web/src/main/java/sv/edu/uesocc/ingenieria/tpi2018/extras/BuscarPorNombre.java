@@ -29,7 +29,7 @@ public interface BuscarPorNombre<T>{
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     default List<T> findByName(@PathParam("name") String name,
         @QueryParam("first") @DefaultValue("0") int first,
-        @QueryParam("pagesize") @DefaultValue("50") int pagesize) throws Exception {
+        @QueryParam("pagesize") @DefaultValue("50") int pagesize) {
         if (getEntidad() != null) {
             if (pagesize > 0 && first >= 0) {
                 List<T> salida = getEntidad().findByName(name, first, pagesize);

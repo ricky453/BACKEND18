@@ -18,14 +18,12 @@ public interface AbstractFacadeInterface<T> {
     
     public T edit(T entity);
     
-    public T remove(T entity);
+    public boolean remove(T entity);
     
     public boolean crear (T entity);
        
     public boolean editar (T entity);
     
-    public boolean eliminar(T entity);
-
     public T findById(Object id);
     
     public List<T> findByName(String name, int first, int pagesize);

@@ -68,6 +68,26 @@ public class MarcaFacadeTest {
         
         assertEquals(2, result.size());
     }
+    @Test
+    public void test_when_nameis_empty() throws Exception {
+        System.out.println("findByName");
+        mf.getEntityManager().persist(new Marca(1, "Marca1"));
+        List<Marca> result = mf.findByName("", 0, 3);
+        
+        System.out.println(result);
+        
+        assertEquals(0, result.size());
+    }
+    @Test
+    public void test_when_consulta_equals_nothing() throws Exception {
+        System.out.println("findByName");
+        mf.getEntityManager().persist(new Marca(1, "Marca1"));
+        List<Marca> result = mf.findByName("", 0, 3);
+        
+        System.out.println(result);
+        
+        assertEquals(0, result.size());
+    }
 
     /**
      * Test of create method, of class MarcaFacade.
@@ -115,6 +135,29 @@ public class MarcaFacadeTest {
         assertEquals(entity.getMarca(), result.getMarca());
 
     }
+    @Test
+    public void test_edit_when_null() throws Exception {
+        System.out.println("edit");
+        mf.getEntityManager().persist(new Marca(1, "Marc1a1"));
+        Marca entity = new Marca(null);
+        System.out.println(entity);
+        
+        Marca result = mf.edit(entity);
+        
+        assertEquals(null, result.getMarca());
+
+    }
+    @Test
+    public void test_when_editar_a_marca() throws Exception {
+        System.out.println("editar");
+        mf.getEntityManager().persist(new Marca(1, "Marc1a1"));
+        Marca entity = new Marca(1, "Marquita1");
+            
+        boolean editado = mf.editar(entity);
+        
+        
+        assertEquals(true, editado);
+    }
 
     /**
      * Test of remove method, of class MarcaFacade.
@@ -129,7 +172,7 @@ public class MarcaFacadeTest {
         System.out.println(mf.findAll());
         Marca entity = new Marca(1);
         
-        boolean result = mf.eliminar(entity);
+        boolean result = mf.remove(entity);
         
         assertTrue(result);
     }

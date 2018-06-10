@@ -11,7 +11,7 @@ package sv.edu.uesocc.ingenieria.tpi2018.extras;
  */
 public class Excepciones extends RuntimeException {
 
-        public Excepciones(String message) {
+    public Excepciones(String message) {
         super(message);
     }
 
@@ -29,7 +29,7 @@ public class Excepciones extends RuntimeException {
         REQFIELD("RELLENE TODOS LOS CAMPOS OBLIGATORIOS"),
         INVPAR("TIENE UN PARAMETRO INVALIDO");
 
-        private String errorMessage;
+        private final String errorMessage;
 
         private Message(String errorMessage) {
             this.errorMessage = errorMessage;
@@ -37,10 +37,6 @@ public class Excepciones extends RuntimeException {
 
         public String getErrorMessage() {
             return errorMessage;
-        }
-
-        public void setErrorMessage(String errorMessage) {
-            this.errorMessage = errorMessage;
         }
 
     }

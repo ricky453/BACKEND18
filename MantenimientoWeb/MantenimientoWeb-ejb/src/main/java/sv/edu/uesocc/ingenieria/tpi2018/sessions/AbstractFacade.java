@@ -19,8 +19,8 @@ import javax.persistence.Query;
  */
 public abstract class AbstractFacade<T> {
 
-    private Class<T> entityClass;
-    private String consulta;
+    private final Class<T> entityClass;
+    private String consulta="";
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -35,9 +35,8 @@ public abstract class AbstractFacade<T> {
     
     public List findByName (String name, int first, int pageSize){
         if (!(name.isEmpty())) {
-              if(consulta!=null||!consulta.isEmpty()){
+              if(!consulta.isEmpty()){
             try {
-               
                 Query q = getEntityManager().createNamedQuery(consulta);
                 q.setParameter("name", name);
                 q.setMaxResults(pageSize);
@@ -79,12 +78,13 @@ public abstract class AbstractFacade<T> {
         return output;
     }
 
-    public T remove(T entity) {
-        if (entity != null && getEntityManager() != null) {
+    public boolean remove(T entity) {
+        try {
             getEntityManager().remove(getEntityManager().merge(entity));
-            return entity;
-        } else {
-            return null;
+            return true;
+        } catch (Exception e) {
+            return false;
+
         }
     }
 
@@ -99,13 +99,6 @@ public abstract class AbstractFacade<T> {
     public boolean editar(T entity) {
         if (entity != null && getEntityManager() != null) {
             return edit(entity) == entity;
-        }
-        return false;
-    }
-
-    public boolean eliminar(T entity) {
-        if (entity != null && getEntityManager() != null) {
-            return remove(entity) == entity;
         }
         return false;
     }

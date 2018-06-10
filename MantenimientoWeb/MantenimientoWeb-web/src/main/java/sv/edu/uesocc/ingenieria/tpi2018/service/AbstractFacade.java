@@ -7,12 +7,8 @@ package sv.edu.uesocc.ingenieria.tpi2018.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityExistsException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -35,26 +31,23 @@ public abstract class AbstractFacade<T> {
     protected abstract AbstractFacadeInterface<T> entidad();
     protected abstract T New();
     private final ArrayList<T> lista = new ArrayList<>();
-    private static final String CORSORIGIN = "Access-Control-Allow-Origin";
-    private static final String CORSCREDENTIAL = "Access-Control-Allow-Credentials";
-    private static final String CORSHEADER = "Access-Control-Allow-Headers";
-    private static final String CORSMETHOD = "Access-Control-Allow-Methods";    
-    private static final String METHODS = "GET, POST, PUT, DELETE, OPTIONS, HEAD";
-    private static final String HEADERS = "origin, content-type, accept, authorization";
-    private static final String CREDENTIAL = "true";
-    private static final String ORIGIN = "*";
 
 
     @POST
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(T registro) throws Exception {
-        if (entidad().crear(registro)) {
-            return Response.status(Response.Status.CREATED).entity(registro).build();
-        }
-        return Response.status(Response.Status.NOT_FOUND)
+    public Response create(T registro) {
+        if(entidad()!=null){
+            T salida = entidad().create(registro);
+            if(salida!=null){
+                return Response.status(Response.Status.CREATED).entity(registro).build();
+            }
+            return Response.status(Response.Status.NOT_FOUND)
                 .entity(registro).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).header("Entidad nula", this).build();
     }
+
 
     @GET
     @Produces({MediaType.APPLICATION_JSON + "; charset=utf-8"})
@@ -63,13 +56,13 @@ public abstract class AbstractFacade<T> {
             return entidad().findAll();
             }
             return lista;
-        }
+        }   
 
     
     @GET
     @Path("buscar/{id}")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
-    public T findById(@PathParam("id") int id) throws Exception {
+    public T findById(@PathParam("id") int id) {
         if (entidad() != null) {
             T encontrado = entidad().findById(id);
             if (encontrado != null) {
@@ -84,30 +77,31 @@ public abstract class AbstractFacade<T> {
     @Path("editar")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editElement(T registro) throws Exception {
-        if (entidad().editar(registro)) {
-            return Response.status(Response.Status.OK)
+    public Response edit(T registro) {
+        T salida;
+        if(entidad()!=null){
+            salida = entidad().edit(registro);
+            if(salida !=null){
+                return Response.status(Response.Status.OK)
                     .entity(registro).build();
+            }
+            return Response.status(Response.Status.NOT_FOUND).header("NO EDITADO", this).build();
         }
-        return Response.status(Response.Status.NOT_FOUND).header("no se pudo editar", this).build();
+        return Response.status(Response.Status.NOT_FOUND).header("Entidad nula", this).build();
     }
 
 
     @DELETE
     @Path("borrar/{id}")
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
-    public Response deleteElement(@PathParam("id") Integer id) throws Exception {
-        if (id > 0) {
-            if (entidad() != null) {
-                T encontrado = entidad().findById(id);
-                if (encontrado != null) {
-                    return Response.status(Response.Status.OK).entity("").build();
-                }
-             throw new Excepciones(Excepciones.Message.NOTFOUND);
-            }
-            throw new NullPointerException("NULO");
+    public String delete(@PathParam("id") Integer id) {
+        if (entidad() != null) {
+            T encontrado = entidad().findById(id);
+            if (encontrado != null) {
+              return String.valueOf(entidad().remove(encontrado));                }
+         throw new Excepciones(Excepciones.Message.NOTFOUND);
         }
-        throw new Excepciones(Excepciones.Message.INVPAR);
+        throw new NullPointerException("NULO");
     }
     
     @GET
