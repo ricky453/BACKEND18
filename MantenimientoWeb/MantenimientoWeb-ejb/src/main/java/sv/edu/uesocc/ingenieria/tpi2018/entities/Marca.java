@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -36,6 +37,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Marca.findByMarca", query = "SELECT m FROM Marca m WHERE m.marca = :marca")})
 public class Marca implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "activo")
+    private boolean activo;
+
 
 
     private static final long serialVersionUID = 1L;
@@ -50,8 +56,6 @@ public class Marca implements Serializable {
     @Size(max = 255)
     @Column(name = "marca")
     private String marca;
-    @Column(name = "activo")
-    private Boolean activo;
     @OneToMany(mappedBy = "idMarca")
     private Collection<DetalleEquipo> detalleEquipoCollection;
 
@@ -95,13 +99,6 @@ public class Marca implements Serializable {
     public void setMarca(String marca) {
         this.marca = marca;
     }
-    public Boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
 
     @XmlTransient
     public Collection<DetalleEquipo> getDetalleEquipoCollection() {
@@ -134,6 +131,14 @@ public class Marca implements Serializable {
     @Override
     public String toString() {
         return "sv.edu.uesocc.ingenieria.tpi2018.entities.Marca[ idMarca=" + idMarca + " ]";
+    }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
     
 }
